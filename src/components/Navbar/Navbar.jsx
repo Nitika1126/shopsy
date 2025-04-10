@@ -1,10 +1,17 @@
-import React from "react";
-import Logo from "../../assets/logo.png";
+import React, {useState} from "react";
+import Cart from '../Cart/Cart.jsx';
+import Logo from "../../assets/logo.jpeg";
 import { IoMdSearch } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaCaretDown } from "react-icons/fa";
-import DarkMode from "./DarkMode";
-
+import DarkMode from "../Products/DarkMode.jsx";
+import CartSidebar from "../CartSidebar/CartSidebar";
+import { useNavigate } from "react-router-dom";
+import { useCart } from '../context/CartContext';
+import { ProductsData } from '../Products/Products';
+import SearchBar from "../SearchBar/SearchBar.jsx";
+import { FaUser } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 const Menu = [
   {
     id: 1,
@@ -13,125 +20,143 @@ const Menu = [
   },
   {
     id: 2,
-    name: "Top Rated",
+    name: "About Us",
     link: "/#services",
   },
   {
     id: 3,
-    name: "Kids Wear",
+    name: "Product",
     link: "/#",
   },
   {
-    id: 3,
-    name: "Mens Wear",
+    id: 4,
+    name: "Contact",
     link: "/#",
   },
   {
-    id: 3,
-    name: "Electronics",
-    link: "/#",
-  },
-];
-
-const DropdownLinks = [
-  {
-    id: 1,
-    name: "Trending Products",
-    link: "/#",
-  },
-  {
-    id: 2,
-    name: "Best Selling",
-    link: "/#",
-  },
-  {
-    id: 3,
-    name: "Top Rated",
+    id: 5,
+    name: "Blog",
     link: "/#",
   },
 ];
 
 const Navbar = ({ handleOrderPopup }) => {
-  return (
-    <div className="shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200 relative z-40">
-      {/* upper Navbar */}
-      <div className="bg-primary/40 py-2">
-        <div className="container flex justify-between items-center">
-          <div>
-            <a href="#" className="font-bold text-2xl sm:text-3xl flex gap-2">
-              <img src={Logo} alt="Logo" className="w-10" />
-              Shopsy
-            </a>
-          </div>
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const navigate = useNavigate();
+  const { cartItems } = useCart();
 
-          {/* search bar */}
-          <div className="flex justify-between items-center gap-4">
-            <div className="relative group hidden sm:block">
-              <input
-                type="text"
-                placeholder="search"
-                className="w-[200px] sm:w-[200px] group-hover:w-[300px] transition-all duration-300 rounded-full border border-gray-300 px-2 py-1 focus:outline-none focus:border-1 focus:border-primary dark:border-gray-500 dark:bg-gray-800  "
-              />
-              <IoMdSearch className="text-gray-500 group-hover:text-primary absolute top-1/2 -translate-y-1/2 right-3" />
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      const searchTerm = searchQuery.toLowerCase();
+      const product = ProductsData.find(p => 
+        p.title.toLowerCase().includes(searchTerm)
+      );
+      
+      if (product) {
+        navigate(`/product/${product.id}`);
+      }
+    }
+  };
+
+  return (
+    <nav className="shadow-sm w-full">
+      <div className="shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200  relative z-40">
+        <CartSidebar 
+          isOpen={isCartOpen}
+          onClose={() => setIsCartOpen(false)}
+          cartItems={cartItems}
+        />
+        
+        {/* upper Navbar */}
+        <div className="bg-primary/40 py-2">
+          <div className="container flex justify-between items-center">
+            {/* Logo */}
+            <div>
+              <a href="#" className="font-bold text-2xl sm:text-3xl flex gap-2">
+                <img src={Logo} alt="Logo" className="w-10" />
+                Glority
+              </a>
             </div>
 
-            {/* order button */}
-            <button
-              onClick={() => handleOrderPopup()}
-              className="bg-gradient-to-r from-primary to-secondary transition-all duration-200 text-white  py-1 px-4 rounded-full flex items-center gap-3 group"
-            >
-              <span className="group-hover:block hidden transition-all duration-200">
-                Order
-              </span>
-              <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" />
-            </button>
+            {/* Right Side Items */}
+            <div className="flex items-center gap-4">
+              {/* Search Bar */}
+              <div className="w-[300px]">
+                <SearchBar products={ProductsData} />
+              </div>
+              <div className="relative">
+                <button 
+                  onClick={() => setShowProfileMenu(!showProfileMenu)}
+                  className="hover:text-orange-500 transition-colors"
+                >
+                  <FaUser className="text-xl text-gray-700 dark:text-white" />
+                </button>
 
-            {/* Darkmode Switch */}
-            <div>
-              <DarkMode />
+                {showProfileMenu && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                    <Link
+                      to="/signup"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setShowProfileMenu(false)}
+                    >
+                      Sign Up
+                    </Link>
+                    <Link
+                      to="/profile"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setShowProfileMenu(false)}
+                    >
+                      Profile
+                    </Link>
+                  </div>
+                )}
+              </div>
+              {/* Cart Button */}
+              <div className="relative">
+                <button
+                  onClick={() => navigate("/cart")}
+                  className="bg-gradient-to-r from-primary to-secondary transition-all duration-200 text-white py-1 px-4 rounded-full flex items-center gap-3 group"
+                >
+                  <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" />
+                  {cartItems.length > 0 && (
+                    <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                      {cartItems.length}
+                    </div>
+                  )}
+                </button>
+              </div>
+
+              {/* Darkmode Switch */}
+              <div>
+                <DarkMode />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {/* lower Navbar */}
-      <div data-aos="zoom-in" className="flex justify-center">
-        <ul className="sm:flex hidden items-center gap-4">
-          {Menu.map((data) => (
-            <li key={data.id}>
-              <a
-                href={data.link}
-                className="inline-block px-4 hover:text-primary duration-200"
-              >
-                {data.name}
+
+        {/* lower Navbar */}
+        <div data-aos="zoom-in" className="flex justify-center">
+          <ul className="sm:flex hidden items-center gap-4">
+            {Menu.map((data) => (
+              <li key={data.id}>
+                <a href={data.link} className="">
+                  {data.name}
+                </a>
+              </li>
+            ))}
+            <li className="group relative cursor-pointer">
+              <a href="#" className="flex items-center gap-[2px] py-2">
+                Testimonial
               </a>
             </li>
-          ))}
-          {/* Simple Dropdown and Links */}
-          <li className="group relative cursor-pointer">
-            <a href="#" className="flex items-center gap-[2px] py-2">
-              Trending Products
-              <span>
-                <FaCaretDown className="transition-all duration-200 group-hover:rotate-180" />
-              </span>
-            </a>
-            <div className="absolute z-[9999] hidden group-hover:block w-[200px] rounded-md bg-white p-2 text-black shadow-md">
-              <ul>
-                {DropdownLinks.map((data) => (
-                  <li key={data.id}>
-                    <a
-                      href={data.link}
-                      className="inline-block w-full rounded-md p-2 hover:bg-primary/20 "
-                    >
-                      {data.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </li>
-        </ul>
+          </ul>
+        </div>
+        
       </div>
-    </div>
+    </nav>
   );
 };
 

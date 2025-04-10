@@ -1,28 +1,36 @@
 import React from "react";
-import Img1 from "../../assets/shirt/shirt.png";
-import Img2 from "../../assets/shirt/shirt2.png";
-import Img3 from "../../assets/shirt/shirt3.png";
-import { FaStar } from "react-icons/fa";
+import Img1 from "../../assets/women/BhringrajP.jpg";
+import Img2 from "../../assets/women/RosemaryP.jpg";
+import Img3 from "../../assets/women/TeaTreeP.jpg";
+import Img4 from "../../assets/women/RosemaryWaterP.jpg";
+
 
 const ProductsData = [
   {
     id: 1,
     img: Img1,
-    title: "Casual Wear",
+    title: "Bhringraj Hair Oil",
     description:
       "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
   {
     id: 2,
     img: Img2,
-    title: "Printed shirt",
+    title: "Rosemary Hair Oil",
     description:
       "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
   {
     id: 3,
     img: Img3,
-    title: "Women shirt",
+    title: "Tea Tree Shampoo",
+    description:
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    id: 4,
+    img: Img4,
+    title: "Rosemary Water",
     description:
       "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
@@ -33,19 +41,19 @@ const TopProducts = ({ handleOrderPopup }) => {
       <div className="container">
         {/* Header section */}
         <div className="text-left mb-24">
-          <p data-aos="fade-up" className="text-sm text-primary">
+          <p data-aos="fade-up" className="text-sm text-center text-primary">
             Top Rated Products for you
           </p>
-          <h1 data-aos="fade-up" className="text-3xl font-bold">
-            Best Products
+          <h1 data-aos="fade-up" className="text-3xl text-center font-bold">
+            About
           </h1>
-          <p data-aos="fade-up" className="text-xs text-gray-400">
+          <p data-aos="fade-up" className="text-xs text-center text-gray-400">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit
             asperiores modi Sit asperiores modi
           </p>
         </div>
         {/* Body section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 md:gap-5 place-items-center">
+        <div className="grid grid-cols-1 mb-8 sm:grid-cols-2 md:grid-cols-4 gap-20 md:gap-5 place-items-center">
           {ProductsData.map((data) => (
             <div
               data-aos="zoom-in"
@@ -62,12 +70,12 @@ const TopProducts = ({ handleOrderPopup }) => {
               {/* details section */}
               <div className="p-4 text-center">
                 {/* star rating */}
-                <div className="w-full flex items-center justify-center gap-1">
+                {/* <div className=" flex items-center justify-center gap-1">
                   <FaStar className="text-yellow-500" />
                   <FaStar className="text-yellow-500" />
                   <FaStar className="text-yellow-500" />
                   <FaStar className="text-yellow-500" />
-                </div>
+                </div> */}
                 <h1 className="text-xl font-bold">{data.title}</h1>
                 <p className="text-gray-500 group-hover:text-white duration-300 text-sm line-clamp-2">
                   {data.description}

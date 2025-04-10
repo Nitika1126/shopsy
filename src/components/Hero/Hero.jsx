@@ -1,30 +1,44 @@
 import React from "react";
-import Image1 from "../../assets/hero/women.png";
-import Image2 from "../../assets/hero/shopping.png";
-import Image3 from "../../assets/hero/sale.png";
+import Image1 from "../../assets/hero/Bhringraj.png";
+import Image2 from "../../assets/hero/Rosemary.png";
+import Image3 from "../../assets/hero/TeaTree.png";
+import Image4 from "../../assets/hero/RosemaryWater.png";
 import Slider from "react-slick";
 
 const ImageList = [
   {
     id: 1,
     img: Image1,
-    title: "Upto 50% off on all Men's Wear",
+    title: "Bhringraj Hair Oil ",
+    price: '200',
     description:
-      "lorem His Life will forever be Changed dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Bthingraj oil promotes hair growth, prevents dandruff and strengthens the roots. Regular use increases the scalp and reduces hair loss naturally. This Ayurvedic agent nourishes deeply, reinforcing brightness and volume. Experience the benefits of beaten oil for thick, healthy hair with your herbal goods, which makes the hair care really effective.",
   },
   {
     id: 2,
     img: Image2,
-    title: "30% off on all Women's Wear",
+    title: "Rosemary Hair Oil ",
+    price: '1200',
+
     description:
-      "Who's there lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Rosemary hair oils increase circulation, stimulates hair growth. Its antioxidant properties prevent premature grams, while its antimicrobial nature fights dandruff. Regular use strengthens threads, reduces fractures. Unlock the benefit of daily hair oil for voluntary, healthy hair with this natural remedy, ensure long -lasting strength and shine spontaneously.",
   },
   {
     id: 3,
     img: Image3,
-    title: "70% off on all Products Sale",
+    title: "Tea tree shampoo",
+    price: '900',
+
     description:
-      "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "The shampoo of the tea tree soaked dandruff, itchy skulls and removed the build -up. Its fungicid properties tend to the roots and combat infection. Ideal for oily hair, this skull balances health, promotes freshness. For a revived, healthy varieties, experiences the power of the shampoo on the tea tree, keep your hair clean, strong and fresh every day.",
+  },
+  {
+    id: 4,
+    img: Image4,
+    title: "Rosemary Water",
+    price: '800',
+    description:
+      "Rosemary water increases hair growth, reduces dandruff and naturally strengthens roots. This improves the circulation in the scalp, prevents thinning. Regular use restores shine, ensures smooth, healthy thread. Experience the benefits of henna water for hair by incorporating this herbal shelf, unlocked its nutritious properties easily for beautiful, flexible locks.",
   },
 ];
 
@@ -70,6 +84,8 @@ const Hero = ({ handleOrderPopup }) => {
                   >
                     {data.description}
                   </p>
+                  <p>
+                  </p>
                   <div
                     data-aos="fade-up"
                     data-aos-duration="500"
@@ -77,7 +93,7 @@ const Hero = ({ handleOrderPopup }) => {
                   >
                     <button
                       onClick={handleOrderPopup}
-                      className="bg-gradient-to-r from-primary to-secondary hover:scale-105 duration-200 text-white py-2 px-4 rounded-full"
+                      className="bg-gradient-to-r text- from-primary to-secondary hover:scale-105 duration-200 text-white py-2 px-4 rounded-full"
                     >
                       Order Now
                     </button>
@@ -85,18 +101,19 @@ const Hero = ({ handleOrderPopup }) => {
                 </div>
                 {/* image section */}
                 <div className="order-1 sm:order-2">
-                  <div
-                    data-aos="zoom-in"
-                    data-aos-once="true"
-                    className="relative z-10"
-                  >
-                    <img
-                      src={data.img}
-                      alt=""
-                      className="w-[300px] h-[300px] sm:h-[450px] sm:w-[450px] sm:scale-105 lg:scale-120 object-contain mx-auto"
-                    />
-                  </div>
-                </div>
+  <div
+    data-aos="zoom-in"
+    data-aos-once="true"
+    className="relative z-10"
+  >
+    <img
+      src={data.img}
+      alt=""
+      className="object-cover mx-auto rounded-md shadow-lg hover:shadow-xl transition-all duration-300 h-96 "
+    />
+  </div>
+</div>
+
               </div>
             </div>
           ))}
